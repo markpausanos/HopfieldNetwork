@@ -1,11 +1,7 @@
 ﻿using HopfieldNetwork.Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace HopfieldNetwork
@@ -23,7 +19,7 @@ namespace HopfieldNetwork
                 return 1;
             }
 
-            return 0;
+            return -1;
         }
 
         private void generateOutputButton_Click(object sender, EventArgs e)
@@ -65,10 +61,30 @@ namespace HopfieldNetwork
             
             for (int i = 0; i < 9; i++)
             {
-                if (hopfield1.output[i] == 1)
+                if (hopfield1.output[i] == pattern1[i])
                 {
-                    pictureBoxes[i].BackColor = Color.LightGreen;
+                    if (hopfield1.output[i] == 1)
+                    {
+                        pictureBoxes[i].BackColor = Color.LightGreen;
+                    }
                 }
+                else
+                {
+                    pictureBoxes[i].BackColor = Color.White;
+                }
+            }
+            reset_ButtonsColor();
+        }
+
+        private void reset_ButtonsColor()
+        {
+            var pictureBoxes = new List<PictureBox>() { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9 };
+
+            var buttons = new List<Button>() { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
+
+            for (int i = 0; i < 9; i++)
+            {
+                buttons[i].BackColor = Color.White;
             }
         }
         private void reset_ColorsPictureBox()

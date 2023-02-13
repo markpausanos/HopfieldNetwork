@@ -29,32 +29,28 @@ namespace HopfieldNetwork.Classes
                 return 1;
             }
 
-            return 0;   
+            return -1;   
         }
         public void Activation(int[] pattern)
         {
-            for (int step = 0, index = 0; step < 9; step++, index++)
+            output = pattern;
+            int[] previous = new int[9] { -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            int[] current = new int[9];
+
+            while (previous != current)
             {
-                neuron[index].activation = neuron[index].Act(pattern);
-                output[index] = Threshold(neuron[index].activation);
-                pattern[index] = output[index];
-                Console.Write(output[index]);
-
-                if (index + 1 == 9)
-                {
-                    Console.WriteLine();
-                }
-
-                index %= 9;
+                previous = current;
+                AsynchronousUpdate(output);
+                current = output;
             }
         }
-        /*public void AsynchronousUpdate(int[] pattern)
+        public void AsynchronousUpdate(int[] pattern)
         {
             for (int i = 0; i < pattern.Length; i++)
             {
-                neuron[i].activation = neuron[i].Act(9, pattern);
+                neuron[i].activation = neuron[i].Act(output);
                 output[i] = Threshold(neuron[i].activation);
             }
-        }*/
+        }
     }
 }
